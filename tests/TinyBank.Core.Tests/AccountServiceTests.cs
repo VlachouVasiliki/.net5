@@ -37,7 +37,7 @@ namespace TinyBank.Core.Tests
             Assert.StartsWith(customer.CountryCode, account.AccountId);
             Assert.Equal(customer.CustomerId, account.CustomerId);
             Assert.Equal(0M, account.Balance);
-            Assert.Equal(Constants.AccountState.Active, account.State);
+            Assert.Equal(Constants.AccountState.Active, account.State); 
         }
     }
 }
