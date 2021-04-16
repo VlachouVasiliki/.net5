@@ -1,0 +1,50 @@
+﻿@model SearchCardViewModel
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<div class="search-form">
+
+    <form action="/card" method="post">
+        <div>
+            <label>Card Number:</label>
+            <input class="form-control js-card-number"
+                   name="cardNumber"
+                   value="@Model.SearchOptions.CardNumber" />
+        </div>
+        <div>
+            <label>Expiration Month:</label>
+            <input class="form-control js-expiration-month"
+                   name="expirationMonth"
+                   value="@Model.SearchOptions.ExpirationMonth" />
+        </div>
+        <div>
+            <label>Expiration Year:</label>
+            <input class="form-control js-expiration-year"
+                   name="expirationYear"
+                   value="@Model.SearchOptions.ExpirationYear" />
+        </div>
+
+        <div>
+            <label>Amount:</label>
+            <input class="form-control js-amount"
+                   name="amount"
+                   value="@Model.SearchOptions.Amount" />
+        </div>
+
+        <button type="submit" class="btn btn-primary js-checkout-balance">
+            Pay
+        </button>
+    </form>
+
+</div>
+
+<div class="alert alert-success d-none" role="alert">
+    Payment was performed successfully!
+</div>
+
+
+<div class="alert alert-danger d-none" role="alert">
+    Something went wrong! Payment was not complete!
+</div>

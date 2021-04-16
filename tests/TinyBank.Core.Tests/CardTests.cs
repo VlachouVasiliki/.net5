@@ -4,7 +4,8 @@ using System.Linq;
 
 using TinyBank.Core.Implementation.Data;
 using TinyBank.Core.Model;
-
+using TinyBank.Core.Services;
+using TinyBank.Core.Services.Options;
 using Xunit;
 
 namespace TinyBank.Core.Tests
@@ -12,10 +13,12 @@ namespace TinyBank.Core.Tests
     public class CardTests : IClassFixture<TinyBankFixture>
     {
         private readonly TinyBankDbContext _dbContext;
+        private readonly ICardService _cards;
 
         public CardTests(TinyBankFixture fixture)
         {
             _dbContext = fixture.DbContext;
+            _cards = fixture.GetService<ICardService>();
         }
 
         [Fact]
@@ -63,6 +66,26 @@ namespace TinyBank.Core.Tests
             Assert.NotNull(customerCard);
             Assert.Equal(Constants.CardType.Debit, customerCard.CardType);
             Assert.True(customerCard.Active);
+        }
+
+        [Fact]
+        public void Card_Payment_Success()
+        {
+            var options = new SearchCardOptions() {
+                CardNumber = "5351420084404288",
+                ExpirationMonth = "04",
+                ExpirationYear = "2023",
+                Amount = 50
+            };
+
+            var result = _cards.Payment(options);
+
+            Assert.True(result.IsSuccessful());
+            Assert.NotNull(result.Data);
+
+            var card = result.Data;
+            Assert.Equal(options.CardNumber, card.CardNumber);
+            Assert.True(card.Active);
         }
     }
 }

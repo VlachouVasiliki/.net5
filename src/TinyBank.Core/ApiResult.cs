@@ -36,6 +36,14 @@ namespace TinyBank.Core
                 Data = data
             };
         }
+        public static ApiResult<T> UpdateSuccessful(T data)
+        {
+            return new ApiResult<T>() {
+                Data = data
+            };
+        }
+
+
 
         public static ApiResult<T> CreateFailed(
             int code, string errorText)
@@ -45,5 +53,14 @@ namespace TinyBank.Core
                 ErrorText = errorText
             };
         }
+        public static ApiResult<T> UpdateFailed(int code, string errorText)
+        {
+            return new ApiResult<T>() {
+                Code = code,
+                ErrorText = errorText
+            };
+        }
+
+
     }
 }
